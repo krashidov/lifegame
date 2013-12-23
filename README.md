@@ -1,8 +1,7 @@
 #Conway's Game of Life
 
-This is a simple game of life program that simulates one generation of Conway's game of life.
+This is a simple game of life program that simulates generations of Conway's game of life.
 
-Welcome to the wonderful game of life.
 Please Enter 1's and 0's delimited by a space.
 `python driver.py boardfilename.txt` will work if you wish to input a file.
 
