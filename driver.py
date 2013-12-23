@@ -14,6 +14,7 @@ def greeting():
 def getFromFile():
     initialGame = list()
 
+    #Looks for file, defaults to stdin if none given
     for line in fileinput.input():
         initialGame.append(cleanAndValidate(line))
 
@@ -27,6 +28,7 @@ def cleanAndValidate(line):
     
     for item in line:
         if item not in validNums:
+            #Exit if not 0 or 1
             sys.stderr.write("Please enter a valid cell value. This should be 0 or 1.\n\r")
             exit(1)
         result.append(int(item))

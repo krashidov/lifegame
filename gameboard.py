@@ -1,6 +1,9 @@
 import sys
 class GameBoard(object):
 
+    #initialize board and toroidal flag
+    #toroidal means that on edge cells, we wrap around the 
+    # board to look for neighbors
     def __init__(self, board, toroidal=False):
         self.board    = board
         self.toroidal = toroidal
@@ -14,7 +17,7 @@ class GameBoard(object):
             temp = []
             for cell in range(len(self.board[row])):
                 temp.append(self.cellFate(row,cell))
-                
+
             self.nextboard.append(temp)
 
     def getValue(self, row, cell):
@@ -28,7 +31,8 @@ class GameBoard(object):
                 return 0
             if cell +1 > len(self.board[row]):
                 return 0
-        #in case it's toroidal, we have to ensure the given indeces are within bounds
+        #in case it's toroidal, we have to ensure the 
+        #given indeces are within bounds
         cellbound = len(self.board[row % rowbound])
 
         return self.board[row % rowbound][cell % cellbound]
