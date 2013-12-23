@@ -1,21 +1,31 @@
 import fileinput,sys
 from gameboard import GameBoard
-
+import argparse
 
 def greeting():
-    print "\n\rWelcome to the wonderful game of life.\n\r"
-    print "Usage:"
-    print "Please Enter 1's and 0's delimited by a space."
-    print "`python driver.py < $boardfilename.txt` will work if you wish to input a file "
+    description ="\n\rWelcome to the wonderful game of life.\n\rPlease Enter 1's and 0's "\
+        "delimited by a space.\n\r`python driver.py $boardfilename.txt` will work "\
+        "if you wish to input a file. \n\rIf you are manually entering your Life "\
+        "Game board, press CTRL-D when you are finished. Thanks!\n\r"
 
-    print "\n\rIf you are manually entering your Life Game board, press CTRL-D"\
-          " when you are finished. Thanks!\n\r"
+    print description
+    parser = argparse.ArgumentParser(description=description)
 
-def getFromFile():
+    parser.add_argument('infile', nargs='?', type=argparse.FileType('r'),
+                       default=sys.stdin)
+    parser.add_argument('--num_generations', '-N', type=int, default=1,
+                       help='Number of Generations to simulate the game of life.')
+    parser.add_argument('--toroidal', '-T', action='store_true', default=False,
+                       help='Simulate the game of life so that edge neighbors wrap around to the opposite side.')
+
+    return parser.parse_args()
+
+def getFromFile(infile):
+
     initialGame = list()
 
     #Looks for file, defaults to stdin if none given
-    for line in fileinput.input():
+    for line in infile:
         initialGame.append(cleanAndValidate(line))
 
     return initialGame
@@ -42,19 +52,20 @@ def printBoard(board):
         print ""
 
 def main():
-    greeting()
-    initialBoard = getFromFile()
+    args = greeting()
+    initialBoard = getFromFile(args.infile)
 
     print "You entered:\n\r"
 
     printBoard(initialBoard)
 
-    g = GameBoard(initialBoard)
-    g.simulate()
+    g = GameBoard(initialBoard, args.toroidal)
+    g.simulate(args.num_generations)
 
-    print "\n\rThe next generation of this board is:\n\r"
+    print "\n\rAfter " + str(args.num_generations)\
+        + " generations, the board will look like:\n\r"
 
-    printBoard(g.nextboard)
+    printBoard(g.board)
 
 if __name__ == '__main__':
     main()

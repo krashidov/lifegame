@@ -13,6 +13,12 @@ test1ans = [[0,0,0,0,0],
             [0,1,0,0,0], 
             [0,0,0,0,0]]
 
+test1bans = [[0,0,0,1,0], 
+             [1,0,0,0,1], 
+             [1,0,0,0,1], 
+             [1,1,0,1,0], 
+             [0,0,0,0,0]]
+
 test2 = [[0,0,0,0,0], 
          [0,0,0,0,0], 
          [0,0,0,0,0], 
@@ -82,51 +88,57 @@ class TestConway(unittest.TestCase):
 
     def test1(self):
         g = GameBoard(test1)
-        g.simulate()
+        g.simulate(1)
         #test in email
-        self.assertEqual(test1ans, g.nextboard)
+        self.assertEqual(test1ans, g.board)
+
+    def test1b(self):
+        g = GameBoard(test1)
+        g.simulate(2)
+        #test in email
+        self.assertEqual(test1bans, g.board)
 
     def test2(self):
         g = GameBoard(test2)
-        g.simulate()
+        g.simulate(1)
         #all zeroes
-        self.assertEqual(test2, g.nextboard)
+        self.assertEqual(test2, g.board)
 
     def test3(self):
         g = GameBoard(test3)
-        g.simulate()
+        g.simulate(1)
         #single digit
-        self.assertEqual(test3ans, g.nextboard)
+        self.assertEqual(test3ans, g.board)
 
     def test4(self):
         g = GameBoard(test4)
-        g.simulate()
+        g.simulate(1)
         #weird bounds
-        self.assertEqual(test4ans, g.nextboard)
+        self.assertEqual(test4ans, g.board)
 
     def test5(self):
         g = GameBoard(test5)
-        g.simulate()
+        g.simulate(1)
         # different perimeters
-        self.assertEqual(test5ans, g.nextboard)
+        self.assertEqual(test5ans, g.board)
 
     def test6(self):
         g = GameBoard(test6)
-        g.simulate()
+        g.simulate(1)
         #all 1s
-        self.assertEqual(test6ans, g.nextboard)
+        self.assertEqual(test6ans, g.board)
 
     def test7(self):
         g = GameBoard(test7)
-        g.simulate()
+        g.simulate(1)
         #diagnols
-        self.assertEqual(test7ans, g.nextboard)
+        self.assertEqual(test7ans, g.board)
 
     def test8(self):
         g = GameBoard(test8)
-        g.simulate()
+        g.simulate(1)
         #single row
-        self.assertEqual(test8ans, g.nextboard)
+        self.assertEqual(test8ans, g.board)
 
 
 if __name__ == '__main__':

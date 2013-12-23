@@ -8,17 +8,20 @@ class GameBoard(object):
         self.board    = board
         self.toroidal = toroidal
     
-    def simulate(self):
+    def simulate(self, n):
         if self.board is None:
             return None
 
-        self.nextboard = []
-        for row in range(len(self.board)):
-            temp = []
-            for cell in range(len(self.board[row])):
-                temp.append(self.cellFate(row,cell))
+        nextboard = []
+        for i in range(n):
+            nextboard = []
+            for row in range(len(self.board)):
+                temp = []
+                for cell in range(len(self.board[row])):
+                    temp.append(self.cellFate(row,cell))
 
-            self.nextboard.append(temp)
+                nextboard.append(temp)
+            self.board = nextboard
 
     def getValue(self, row, cell):
         rowbound  = len(self.board)
