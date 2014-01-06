@@ -5,7 +5,7 @@ This is a simple game of life program that simulates generations of Conway's gam
 Please Enter 1's and 0's delimited by a space.
 `python driver.py boardfilename.txt` will work if you wish to input a file.
 
-**If you are manually entering your Life Game board, press CTRL-D when you are finished**. Thanks!
+**If you are manually entering your Life Game board, press Enter and then CTRL-D when you are finished**. Thanks!
 
 usage: driver.py [-h] [--num_generations NUM_GENERATIONS] [--toroidal]
                  [infile]
