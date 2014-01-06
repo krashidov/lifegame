@@ -5,14 +5,28 @@ class GameBoard(object):
     #toroidal means that on edge cells, we wrap around the 
     # board to look for neighbors
     def __init__(self, board, toroidal=False):
+        self.validateBoard(board)
         self.board    = board
         self.toroidal = toroidal
     
-    def simulate(self, n):
-        if self.board is None:
-            return None
+    def validateBoard(self, unvalidatedBoard):
+        if type(unvalidatedBoard) != list:
+            raise ValueError("Board given is not a list")
 
-        nextboard = []
+        try:
+            for row in unvalidatedBoard:
+                for cell in row:
+                    if cell > 1 or cell < 0 or type(cell) != int:
+                        raise ValueError("Invalid types inside the board")
+        except Exception, e:
+            raise e
+
+
+
+    def simulate(self, n):
+        if n < 0:
+            raise ValueError("Number of simulations cannot be negative")       
+
         for i in range(n):
             nextboard = []
             for row in range(len(self.board)):
@@ -30,9 +44,9 @@ class GameBoard(object):
         if not self.toroidal:
             if row < 0 or cell < 0:
                 return 0
-            if row + 1 > rowbound:
+            elif row + 1 > rowbound:
                 return 0
-            if cell +1 > len(self.board[row]):
+            elif cell +1 > len(self.board[row]):
                 return 0
         #in case it's toroidal, we have to ensure the 
         #given indeces are within bounds
@@ -55,7 +69,7 @@ class GameBoard(object):
 
         if liveNeighbors == 3:
             return 1
-        if liveNeighbors == 2 and currentValue == 1:
+        elif liveNeighbors == 2 and currentValue == 1:
             return 1
         return 0
 

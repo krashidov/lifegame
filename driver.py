@@ -6,10 +6,10 @@ def greeting():
     description ="\n\rWelcome to the wonderful game of life.\n\rPlease Enter 1's and 0's "\
         "delimited by a space.\n\r`python driver.py $boardfilename.txt` will work "\
         "if you wish to input a file. \n\rIf you are manually entering your Life "\
-        "Game board, press CTRL-D when you are finished. Thanks!\n\r"
+        "Game board, press Enter and then CTRL-D when you are finished. Thanks!\n\r"
 
     print description
-    parser = argparse.ArgumentParser(description=description)
+    parser = argparse.ArgumentParser()
 
     parser.add_argument('infile', nargs='?', type=argparse.FileType('r'),
                        default=sys.stdin)
